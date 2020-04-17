@@ -25,20 +25,11 @@ def main_func():
 	arm_count = 0
 	credit = 0.0
 	arm_flag = 0
-	id_hack_flag=0
 	tree = ET.iterparse("download.xml", events=("start", "end"))
 	is_first = True
 	for event, elem in tree:
-		if elem.tag == "id" and event == "end" and (elem.text == "3986366" or elem.text == "3986234" or elem.text == "3985708" or elem.text == "4016022"):
-			id_hack_flag = 1
-			arm_count=arm_count+1
-			print(elem.text)
-			elem.clear()
 		if elem.tag == "total_credit" and event == "end":
 			tcredit = float(elem.text)
-			if id_hack_flag == 1:
-				credit = credit + tcredit
-				id_hack_flag = 0
 			elem.clear()
 		if elem.tag == "p_vendor" and event == "end" and elem.text == "ARM":
 			arm_flag = 1

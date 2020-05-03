@@ -12,21 +12,21 @@ def main_func():
 
 	print("Downloading")
 	r = requests.get(host_file_url, stream = True)
-	with open("download.gz", "wb") as data:
+	with open("/home/ric/download.gz", "wb") as data:
 		total_length = int(r.headers.get('content-length'))
 		for chunk in progress.bar(r.iter_content(chunk_size = 1024), expected_size=(total_length/1024) + 1):
 			if chunk:
 				data.write(chunk)
 
 	print("Decompressing")
-	with open('download.xml', 'wb') as f_out, gzip.open('download.gz', 'rb') as f_in:
+	with open('/home/ric/download.xml', 'wb') as f_out, gzip.open('/home/ric/download.gz', 'rb') as f_in:
 		shutil.copyfileobj(f_in, f_out)
 
 	print("Parsing")
 	arm_count = 0
 	credit = 0.0
 	arm_flag = 0
-	tree = ET.iterparse("download.xml", events=("start", "end"))
+	tree = ET.iterparse("/home/ric/download.xml", events=("start", "end"))
 	is_first = True
 	for event, elem in tree:
 		if elem.tag == "total_credit" and event == "end":

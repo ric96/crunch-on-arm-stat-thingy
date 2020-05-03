@@ -4,6 +4,7 @@ import io
 import xml.etree.ElementTree as ET
 import shutil
 from clint.textui import progress
+import subprocess as cmd
 
 def main_func():
 	#host_file_url = "https://ralph.bakerlab.org/stats/host.gz"
@@ -46,9 +47,17 @@ def main_func():
 			elem.clear()
 		if elem.tag == "hosts" and event == "end":
 			elem.clear()
-		
+
 	print("Non Android ARM machine count = %s" % arm_count)
 	print("Combined Credit = %f" % credit)
+	readme = open('README.md', 'w')
+	print("# Non Android ARM machine count = %s \n" % arm_count, file = readme)
+	print("# Combined Credit = %f" % credit, file = readme)
+	readme.close()
+	cp = cmd.run("rm -rf download*", check=True, shell=True)
+	cp = cmd.run("git add .", check=True, shell=True)
+	cp = cmd.run("git commit -m 'Update Stats'", check=True, shell=True)
+	cp = cmd.run("git push", check=True, shell=True)
 
 if __name__ == '__main__':
     main_func()

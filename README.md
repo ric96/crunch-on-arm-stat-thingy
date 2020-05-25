@@ -1,3 +1,3 @@
-# Non Android ARM machine count = 5064 
+# Non Android ARM machine count = 5114 
 
-# Combined Credit = 72341791.514416
+# Combined Credit = 74218761.563107
